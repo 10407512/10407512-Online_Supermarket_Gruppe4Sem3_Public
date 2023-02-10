@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Check Out";
+}
+
+<h1>CheckOut</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CheckOut">
+            <div>
+                <label>First Name</label>
+                <input name="FName" class=" form-control" />
+            </div>
+            <div>
+                <label>Last Name</label>
+                <input name="LName" class="form-control" />
+            </div>
+            <div>
+                <label>Email</label>
+                <input name="Email" class=" form-control" />
+            </div>
+            <div>
+                <label>Phone Number</label>
+                <input name="PhoneNo" class="form-control" />
+            </div>
+            <p align="right">
+            <div class="form-group">
+                <input type="submit" value="Go to Payment" class="btn btn-primary" />
+            </div>
+            </p>
+        </form>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to Cart", "Index", "OrderLine")
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

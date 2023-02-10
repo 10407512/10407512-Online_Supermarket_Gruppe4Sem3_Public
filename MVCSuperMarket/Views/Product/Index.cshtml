@@ -1,0 +1,101 @@
+﻿@model IEnumerable<RESTClient.DTOs.ProductDTO>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>Product List</h1>
+
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Brand)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Price)
+			</th>
+			<th>
+				Info
+			</th>
+			<th>
+				Quantity
+			</th>
+			<th>
+				@*Space for Add Cart button*@
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Brand)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Price)
+				</td>
+				<td>
+					@Html.ActionLink("Details", "Details", new { item.Barcode })
+					@*@Html.ActionLink("Add to Cart", "Create", "OrderLine", new { action = "Create", controller = "OrderLine", item.Barcode}, null)*@
+					@*@Html.ActionLink("Add to Cart", "AddToCart", "OrderLine", new { item.Barcode, name = item.Name, price = item.Price }, null)*@
+					@*@Html.ActionLink("Add to Cart", "AddToCart", "OrderLine", new { item.Barcode }, null)*@
+				</td>
+				@using (Html.BeginForm("AddToCart", "OrderLine", "post"))
+				{
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<div class="col-sm-3" style="=width:0%">
+						<div class="form-group">
+							<input name="Barcode" class="form-control" type="hidden" value="@item.Barcode" />
+							<span asp-validation-for="@item.Barcode" class="text-danger"></span>
+						</div>
+					</div>
+					@if (item.Stock > 0)
+					{
+						<td style="width:10%">
+							<div class="col-auto">
+								<div class="form-group">
+									<input name="Quantity" class="form-control mb-2" value="1" style="center" />
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="col">
+								<div class="form-group">
+									<button type="submit" class="btn btn-primary mb-2">Add to Cart</button>
+								</div>
+							</div>
+
+						</td>
+					}
+					else
+					{
+						<td>
+							<div class="col-auto">
+								<div class="form-group">
+									<input name="Quantity" class="form-control mb-2" value="1" style="center" readonly />
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="col">
+								<div class="form-group">
+									<button disabled class="btn btn-secondary mb-2">Out of stock</button>
+								</div>
+							</div>
+
+						</td>
+					}
+				}
+			</tr>
+		}
+	</tbody>
+</table>

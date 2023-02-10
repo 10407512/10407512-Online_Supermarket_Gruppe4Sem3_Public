@@ -1,0 +1,77 @@
+﻿@model IEnumerable<RESTClient.DTOs.OrderLineDTO>
+
+@{
+	ViewData["Title"] = "Cart";
+	double Total = 0;
+}
+
+<h1>Cart</h1>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Quantity)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Product.Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Product.Brand)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Product.Price)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.SubTotal)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Quantity)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Product.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Product.Brand)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Product.Price)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.SubTotal)
+				</td>
+				<td>
+					@Html.ActionLink("Edit", "Edit", new { item.Product.Barcode }) |
+					@Html.ActionLink("Details", "Details", new { item.Product.Barcode }) |
+					@Html.ActionLink("Delete", "Delete", new { item.Product.Barcode })
+					@{
+						Total += item.SubTotal;
+					}
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+<p dir="rtl">Total @Math.Round(Total, 2)</p>
+@if (Model.Any())
+{
+	<div class="form-group" dir="rtl">
+		<input type="button" value="Check Out" class="btn btn-primary" onclick="location.href='@Url.Action("CheckOut", "Order")'" />
+	</div>
+}
+else
+{
+	<div class="form-group" dir="rtl">
+		<input type="button" value="Find products" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Product")'" />
+	</div>
+}
