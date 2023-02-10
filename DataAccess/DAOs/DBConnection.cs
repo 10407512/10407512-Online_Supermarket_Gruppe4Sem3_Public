@@ -11,10 +11,5 @@ namespace DataAccess.DataAccess
         {
             _configuration = new ConfigurationBuilder().SetBasePath(Path.GetFullPath("../DataAccess")).AddJsonFile("config.json").Build();
         }
-
-        public static SqlConnectionStringBuilder _connectionStringBuilder = new()
-        {
-            
-        };
     }
 }
