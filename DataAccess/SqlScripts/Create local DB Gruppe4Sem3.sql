@@ -1,3 +1,9 @@
+Create database NetSuper
+go
+
+Use NetSuper
+go
+
 Create table Person(
 	f_name nvarchar(25) not null,
 	l_name nvarchar(25) not null,
