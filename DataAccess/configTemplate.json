@@ -1,5 +1,6 @@
 {
   "ConnectionStrings": {
-    "DefaultDbConnection": "Data Source=[ServerName];Initial Catalog=[DatabaseName];User ID=;Password=;Encrypt = false"
+    "OnlineDbConnection": "Data Source=[ServerName];Initial Catalog=[DatabaseName];User ID=;Password=;Encrypt = false",
+    "DefaultDbConnection": "Data Source=[ServerName];Integrated Security=True;Initial Catalog=NetSuper;Encrypt = false"
   }
 }
